@@ -1062,6 +1062,10 @@
           <option value="5">+ 5 acompanhantes</option>
         </select>
       </div>
+      <div class="rsvp-field" id="nomes-field" style="display:none">
+        <label>Nome(s) dos acompanhantes</label>
+        <textarea name="acompanhantes_nomes" placeholder="Indica o nome de cada acompanhante"></textarea>
+      </div>
       <div class="rsvp-field">
         <label>Restrições alimentares</label>
         <textarea name="restricoes" placeholder="Deixa aqui qualquer restrição alimentar (opcional)"></textarea>
@@ -1106,6 +1110,12 @@
     document.getElementById('nav-close').addEventListener('click', closeMenu);
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
+    // Show/hide companion names field
+    document.querySelector('select[name="acompanhantes"]').addEventListener('change', function() {
+      const nomesField = document.getElementById('nomes-field');
+      nomesField.style.display = this.value > 0 ? 'flex' : 'none';
+    });
+
     // RSVP form
     document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -1124,6 +1134,7 @@
           nome: formData.get('nome'),
           presenca: formData.get('presenca'),
           acompanhantes: formData.get('acompanhantes'),
+          acompanhantes_nomes: formData.get('acompanhantes_nomes') || '—',
           restricoes: formData.get('restricoes') || '—'
         });
         await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec?' + params);
