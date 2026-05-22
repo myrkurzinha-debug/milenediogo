@@ -103,6 +103,10 @@
       list-style: none;
       display: flex;
       gap: 40px;
+      position: fixed;
+      top: 28px;
+      right: 60px;
+      z-index: 99;
     }
 
     .nav-links a {
@@ -117,8 +121,8 @@
 
     .nav-links a:hover { color: var(--white); }
 
-    nav.scrolled .nav-links a { color: var(--mid); }
-    nav.scrolled .nav-links a:hover { color: var(--dark); }
+    .nav-links.scrolled a { color: var(--mid); }
+    .nav-links.scrolled a:hover { color: var(--dark); }
 
     /* ── Hero ─────────────────────────────────────────── */
     .hero {
@@ -652,14 +656,16 @@
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#story">A Nossa História</a></li>
-      <li><a href="#details">Detalhes</a></li>
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="#faq">FAQs</a></li>
-      <li><a href="#hotels">Hotéis</a></li>
-    </ul>
   </nav>
+
+  <!-- Mobile / Desktop nav links (outside nav to escape stacking context) -->
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#story">A Nossa História</a></li>
+    <li><a href="#details">Detalhes</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#faq">FAQs</a></li>
+    <li><a href="#hotels">Hotéis</a></li>
+  </ul>
 
   <!-- Hero -->
   <section class="hero" id="hero">
@@ -865,15 +871,19 @@
   </footer>
 
   <script>
-    // Nav scroll behaviour
+    // Nav elements
     const navbar = document.getElementById('navbar');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    // Nav scroll behaviour
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 80);
+      const scrolled = window.scrollY > 80;
+      navbar.classList.toggle('scrolled', scrolled);
+      navLinks.classList.toggle('scrolled', scrolled);
     });
 
     // Hamburger toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.getElementById('nav-links');
     navToggle.addEventListener('click', () => {
       const isOpen = navLinks.classList.toggle('open');
       navToggle.classList.toggle('open');
