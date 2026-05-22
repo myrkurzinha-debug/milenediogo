@@ -1105,25 +1105,24 @@
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
     // RSVP form
-    const SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
     document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('rsvp-btn');
       const msg = document.getElementById('rsvp-message');
       const form = e.target;
-      const data = {
-        nome: form.nome.value,
-        presenca: form.presenca.value,
-        acompanhantes: form.acompanhantes.value,
-        restricoes: form.restricoes.value
-      };
+      const formData = new FormData(form);
       btn.disabled = true;
       btn.textContent = 'A enviar…';
       try {
-        await fetch(SCRIPT_URL, {
+        await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec', {
           method: 'POST',
           mode: 'no-cors',
-          body: JSON.stringify(data)
+          body: JSON.stringify({
+            nome: formData.get('nome'),
+            presenca: formData.get('presenca'),
+            acompanhantes: formData.get('acompanhantes'),
+            restricoes: formData.get('restricoes')
+          })
         });
         msg.textContent = 'Obrigada! A tua presença foi confirmada. ♡';
         form.reset();
