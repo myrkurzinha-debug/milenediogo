@@ -1114,15 +1114,15 @@
       btn.disabled = true;
       btn.textContent = 'A enviar…';
       try {
-        await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec', {
-          method: 'POST',
-          mode: 'no-cors',
-          body: JSON.stringify({
-            nome: formData.get('nome'),
-            presenca: formData.get('presenca'),
-            acompanhantes: formData.get('acompanhantes'),
-            restricoes: formData.get('restricoes')
-          })
+        const params = new URLSearchParams({
+          nome: formData.get('nome'),
+          presenca: formData.get('presenca'),
+          acompanhantes: formData.get('acompanhantes'),
+          restricoes: formData.get('restricoes') || '—'
+        });
+        await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec?' + params, {
+          method: 'GET',
+          mode: 'no-cors'
         });
         msg.textContent = 'Obrigada! A tua presença foi confirmada. ♡';
         form.reset();
