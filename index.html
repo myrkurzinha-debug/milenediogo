@@ -1120,10 +1120,7 @@
           acompanhantes: formData.get('acompanhantes'),
           restricoes: formData.get('restricoes') || '—'
         });
-        await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec?' + params, {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec?' + params);
         msg.textContent = 'Obrigada! A tua presença foi confirmada. ♡';
         form.reset();
       } catch {
