@@ -689,23 +689,7 @@
       color: rgba(255,255,255,0.25);
     }
 
-    /* ── Nav close button ─────────────────────────────────── */
-    .nav-close {
-      display: none;
-      position: absolute;
-      top: 28px;
-      right: 24px;
-      background: none;
-      border: none;
-      font-size: 24px;
-      font-weight: 300;
-      color: var(--mid);
-      cursor: pointer;
-      line-height: 1;
-      padding: 8px;
-    }
-
-    /* ── Hamburger ────────────────────────────────────────── */
+/* ── Hamburger ────────────────────────────────────────── */
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -728,7 +712,9 @@
     nav.scrolled .nav-toggle span { background: var(--dark); }
     .nav-toggle.open span { background: var(--dark); }
 
-    .nav-toggle.open { opacity: 0; pointer-events: none; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
     /* ── Responsive ───────────────────────────────────── */
     @media (max-width: 1100px) {
@@ -763,7 +749,6 @@
       }
 
       .nav-links.open { display: flex; }
-      .nav-links.open .nav-close { display: block; }
 
       .nav-links li { width: 100%; text-align: center; }
 
@@ -824,8 +809,7 @@
 
   <!-- Mobile / Desktop nav links (outside nav to escape stacking context) -->
   <ul class="nav-links" id="nav-links">
-    <button class="nav-close" id="nav-close" aria-label="Fechar menu">&#x2715;</button>
-    <li><a href="#story">A Nossa História</a></li>
+<li><a href="#story">A Nossa História</a></li>
     <li><a href="#details">Detalhes</a></li>
     <li><a href="#menu">Menu</a></li>
     <li><a href="#faq">FAQs</a></li>
@@ -1109,8 +1093,7 @@
       document.body.style.overflow = '';
     }
 
-    document.getElementById('nav-close').addEventListener('click', closeMenu);
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
     // Show/hide companion names field
     document.querySelector('select[name="acompanhantes"]').addEventListener('change', function() {
