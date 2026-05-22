@@ -551,7 +551,7 @@
       border: none;
       cursor: pointer;
       padding: 4px;
-      z-index: 101;
+      z-index: 10000;
     }
 
     .nav-toggle span {
@@ -588,13 +588,12 @@
         display: none;
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(255,255,255,0.98);
-        backdrop-filter: blur(12px);
+        background: #ffffff;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 0;
-        z-index: 99;
+        z-index: 9999;
       }
 
       .nav-links.open { display: flex; }
