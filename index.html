@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Milene & Diogo — 26.09.'26</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -1065,6 +1066,7 @@
         <label>Restrições alimentares</label>
         <textarea name="restricoes" placeholder="Deixa aqui qualquer restrição alimentar (opcional)"></textarea>
       </div>
+      <div class="g-recaptcha" data-sitekey="6Ley-_csAAAAAH2abYKIYVhSG9zqMSSDtMW9uMMN" data-theme="dark" style="align-self:center"></div>
       <button type="submit" class="btn-rsvp" id="rsvp-btn">Confirmar presença</button>
       <p class="rsvp-message" id="rsvp-message"></p>
     </form>
@@ -1109,6 +1111,10 @@
       e.preventDefault();
       const btn = document.getElementById('rsvp-btn');
       const msg = document.getElementById('rsvp-message');
+      if (!grecaptcha.getResponse()) {
+        msg.textContent = 'Por favor confirma que não és um robô. 🤖';
+        return;
+      }
       const form = e.target;
       const formData = new FormData(form);
       btn.disabled = true;
@@ -1123,6 +1129,7 @@
         await fetch('https://script.google.com/macros/s/AKfycbx9jEZdKjdtvwSw5_2HG4uiQtByPSHeaFgvPNlsRHjrwGd0AkDGr73gQqWOYDfL7S0S/exec?' + params);
         msg.textContent = 'Obrigada! A tua presença foi confirmada. ♡';
         form.reset();
+        grecaptcha.reset();
       } catch {
         msg.textContent = 'Algo correu mal. Tenta novamente.';
       } finally {
