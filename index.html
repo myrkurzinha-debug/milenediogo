@@ -1036,24 +1036,26 @@
           </div>
         </div>
       </div>
-      <div class="rsvp-field">
-        <label>Número de acompanhantes</label>
-        <select name="acompanhantes">
-          <option value="0">Venho sozinho/a</option>
-          <option value="1">+ 1 acompanhante</option>
-          <option value="2">+ 2 acompanhantes</option>
-          <option value="3">+ 3 acompanhantes</option>
-          <option value="4">+ 4 acompanhantes</option>
-          <option value="5">+ 5 acompanhantes</option>
-        </select>
-      </div>
-      <div class="rsvp-field" id="nomes-field" style="display:none">
-        <label>Nome(s) dos acompanhantes</label>
-        <textarea name="acompanhantes_nomes" placeholder="Indica o nome de cada acompanhante"></textarea>
-      </div>
-      <div class="rsvp-field">
-        <label>Restrições alimentares</label>
-        <textarea name="restricoes" placeholder="Deixa aqui qualquer restrição alimentar (opcional)"></textarea>
+      <div id="sim-fields" style="display:none; flex-direction:column; gap:20px; width:100%">
+        <div class="rsvp-field">
+          <label>Número de acompanhantes</label>
+          <select name="acompanhantes">
+            <option value="0">Venho sozinho/a</option>
+            <option value="1">+ 1 acompanhante</option>
+            <option value="2">+ 2 acompanhantes</option>
+            <option value="3">+ 3 acompanhantes</option>
+            <option value="4">+ 4 acompanhantes</option>
+            <option value="5">+ 5 acompanhantes</option>
+          </select>
+        </div>
+        <div class="rsvp-field" id="nomes-field" style="display:none">
+          <label>Nome(s) dos acompanhantes</label>
+          <textarea name="acompanhantes_nomes" placeholder="Indica o nome de cada acompanhante"></textarea>
+        </div>
+        <div class="rsvp-field">
+          <label>Restrições alimentares</label>
+          <textarea name="restricoes" placeholder="Deixa aqui qualquer restrição alimentar (opcional)"></textarea>
+        </div>
       </div>
       <div class="g-recaptcha" data-sitekey="6Lf3_PcsAAAAALlsQ-9ogbF2Pn4gEg5DA6FIrbly" data-theme="dark" style="align-self:center"></div>
       <button type="submit" class="btn-rsvp" id="rsvp-btn">Confirmar presença</button>
@@ -1093,6 +1095,14 @@
     }
 
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Show/hide fields based on presença
+    document.querySelectorAll('input[name="presenca"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const simFields = document.getElementById('sim-fields');
+        simFields.style.display = this.value === 'Sim' ? 'flex' : 'none';
+      });
+    });
 
     // Show/hide companion names field
     document.querySelector('select[name="acompanhantes"]').addEventListener('change', function() {
